@@ -68,8 +68,7 @@ predefined variables in [other configuration files](https://code.visualstudio.co
 
 For example:
 
-- `${fileNoExtension}.cpp` - `/home/src/foo.h` will be formatted with
-  `-assume-filename /home/src/foo.cpp`.
+* `${fileNoExtension}.cpp` - `/home/src/foo.h` will be formatted with `-assume-filename /home/src/foo.cpp`.
 
 ## Source code
 
