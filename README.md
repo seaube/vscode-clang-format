@@ -8,15 +8,26 @@ This extension allows you to format your code with [Clang-Format](http://clang.l
 
 Files can be formatted on-demand by right clicking in the document and
 selecting "Format Document", or by using the associated keyboard shortcut
-(usually Ctrl+⇧+F on Windows, Ctrl+⇧+I on Linux, and ⇧+⌥+F on macOS).
+(usually `Ctrl`+`⇧`+`F` on Windows, `Ctrl`+`⇧`+`I` on Linux, and `⇧`+`⌥`+`F` on macOS).
 
 To automatically format a file on save, add the following to your
-vscode settings.json file:
+vscode `settings.json` file:
 
 ```json
 {
-    "editor.formatOnSave": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "seaube.clang-format"
+}
+```
+
+If you would like to only use ClangFormat for a specify language use [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings).
+
+```json
+{
+  "editor.formatOnSave": true,
+  "[cpp]": {
     "editor.defaultFormatter": "seaube.clang-format"
+  }
 }
 ```
 
@@ -28,12 +39,22 @@ settings.json file:
 
 ```json
 {
-    "clang-format.executable": "/absolute/path/to/clang-format"
+  "clang-format.executable": "/absolute/path/to/clang-format"
 }
 ```
 
-Placeholders can also be used in the `clang-format.executable` value.
-The following placeholders are supported:
+Additionally you may specify a different path for different platforms.
+
+```json
+{
+  "clang-format.executable.windows": "/absolute/path/to/clang-format.exe",
+  "clang-format.executable.linux": "/absolute/path/to/clang-format",
+  "clang-format.executable.macos": "/absolute/path/to/clang-format",
+}
+```
+
+Substitutions can also be used in the `clang-format.executable` value.
+The following substitutions are supported:
 
 - `${workspaceFolder}` - replaced by the absolute path of the current vscode
   workspace. In case of outside-workspace files `${workspaceFolder}` expands
@@ -42,15 +63,8 @@ The following placeholders are supported:
 - `${env.VAR}` - replaced by the environment variable $VAR, e.g. `${env.HOME}`
   will be replaced by `$HOME`, your home directory.
 
-Some examples:
-
-- `${workspaceRoot}/node_modules/.bin/clang-format` - specifies the version of
-  clang that has been added to your workspace by `npm install clang-format`.
-- `${env.HOME}/tools/clang38/clang-format` - use a specific clang format version
-  under your home directory.
-
-Placeholders are also supported in `clang-format.assumeFilename`. The supported
-placeholders are `${file}`, `${fileNoExtension}`, `${fileBasename}`,
+Substitutions are also supported in `clang-format.assumeFilename`. The supported
+substitutions are `${file}`, `${fileNoExtension}`, `${fileBasename}`,
 `${fileBasenameNoExtension}`, and `${fileExtname}`, with the same meaning as the
 predefined variables in [other configuration files](https://code.visualstudio.com/docs/editor/variables-reference).
 
