@@ -3,7 +3,27 @@ import * as vscode from 'vscode';
 const aliases: {[lang: string]: string|undefined} = {
   'proto3': 'proto',
 };
-export const availableLanguages: ReadonlyArray<string> = ['cpp', 'c', 'csharp', 'objective-c', 'objective-cpp', 'java', 'javascript', 'typescript', 'proto', 'proto3', 'apex', 'glsl', 'hlsl', 'cuda', 'cuda-cpp',];
+
+// keep sorted
+export const availableLanguages: ReadonlyArray<string> = [
+  'apex',
+  'c',
+  'cpp',
+  'csharp',
+  'cuda-cpp',
+  'cuda',
+  'glsl',
+  'hlsl',
+  'java',
+  'javascript',
+  'json',
+  'objective-c',
+  'objective-cpp',
+  'proto',
+  'proto3',
+  'textproto',
+  'typescript',
+];
 
 const defaultConfig = {
   executable: 'clang-format',

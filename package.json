@@ -180,6 +180,16 @@
           "default": "",
           "description": "clang-format fallback style for Apex, left empty to use clang-format.fallbackStyle"
         },
+        "clang-format.language.textproto.style": {
+          "type": "string",
+          "default": "",
+          "description": "clang-format fallback style for textproto, left empty to use clang-format.style"
+        },
+        "clang-format.language.textproto.fallbackStyle": {
+          "type": "string",
+          "default": "",
+          "description": "clang-format fallback style for textproto, left empty to use clang-format.fallbackStyle"
+        },
         "clang-format.language.glsl.style": {
           "type": "string",
           "default": "",
