@@ -1,30 +1,14 @@
 import * as vscode from 'vscode';
 import {spawn} from 'child_process';
 import * as path from 'path';
-import {MODES, langConfigName} from './clangMode';
+import {MODES} from './clangMode';
 import {getBinPath} from './clangPath';
 import * as sax from 'sax';
+import { clangFormatConfig, clangFormatLangConfig } from './config';
 
 export let outputChannel = vscode.window.createOutputChannel('Clang-Format');
 
-function getPlatformString() {
-  switch(process.platform) {
-    case 'win32': return 'windows';
-    case 'linux': return 'linux';
-    case 'darwin': return 'macos';
-  }
-
-  return 'unknown';
-}
-
 export class ClangDocumentFormattingEditProvider implements vscode.DocumentFormattingEditProvider, vscode.DocumentRangeFormattingEditProvider {
-  private defaultConfigure = {
-    executable: 'clang-format',
-    style: 'file',
-    fallbackStyle: 'none',
-    assumeFilename: ''
-  };
-
   public async provideDocumentFormattingEdits(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken) {
     return await this.doFormatDocument(document, null, token) || [];
   }
@@ -129,58 +113,22 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   /// Get execute name in clang-format.executable, if not found, use default value
   /// If configure has changed, it will get the new value
   private getExecutablePath() {
-    let platform = getPlatformString();
-    let config = vscode.workspace.getConfiguration('clang-format');
-
-    let platformExecPath = config.get<string>('executable.' + platform);
-    let defaultExecPath = config.get<string>('executable');
-    let execPath = platformExecPath || defaultExecPath;
-
-    if (!execPath) {
-      return this.defaultConfigure.executable;
-    }
-
-    // replace placeholders, if present
-    return execPath
+    return clangFormatConfig('executable')
       .replace(/\${workspaceFolder}/g, this.getWorkspaceFolder() || '')
       .replace(/\${cwd}/g, process.cwd())
       .replace(/\${env\.([^}]+)}/g, (sub: string, envName: string) => process.env[envName] || '');
   }
 
-  private getLanguage(document: vscode.TextDocument): string {
-    return langConfigName(document.languageId);
-  }
-
   private getStyle(document: vscode.TextDocument) {
-    let ret = vscode.workspace.getConfiguration('clang-format').get<string>(`language.${this.getLanguage(document)}.style`) || '';
-    if (ret.trim()) {
-      return ret.trim();
-    }
-
-    ret = vscode.workspace.getConfiguration('clang-format').get<string>('style') || '';
-    if (ret && ret.trim()) {
-      return ret.trim();
-    } else {
-      return this.defaultConfigure.style;
-    }
+    return clangFormatLangConfig(document.languageId, 'style');
   }
 
   private getFallbackStyle(document: vscode.TextDocument) {
-    let strConf = vscode.workspace.getConfiguration('clang-format').get<string>(`language.${this.getLanguage(document)}.fallbackStyle`) || '';
-    if (strConf.trim()) {
-      return strConf;
-    }
-
-    strConf = vscode.workspace.getConfiguration('clang-format').get<string>('fallbackStyle') || '';
-    if (strConf.trim()) {
-      return strConf;
-    }
-
-    return this.defaultConfigure.style;
+    return clangFormatLangConfig(document.languageId, 'fallbackStyle');
   }
 
   private getAssumedFilename(document: vscode.TextDocument) {
-    let assumedFilename = vscode.workspace.getConfiguration('clang-format').get<string>('assumeFilename');
+    const assumedFilename = clangFormatConfig('assumeFilename');
     if (!assumedFilename) {
       return document.fileName;
     }
