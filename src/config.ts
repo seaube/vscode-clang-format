@@ -49,12 +49,12 @@ function platformString() {
 export type ClangFormatConfigKey = keyof typeof defaultConfig;
 
 export function clangFormatLangEnabled(lang: string): boolean {
-  const config = vscode.workspace.getConfiguration('clang-format');
+  const config = vscode.workspace.getConfiguration('clangformat');
   return config.get<boolean>(`language.${langConfigName(lang)}.enabled`) || false;
 }
 
 export function clangFormatLangConfig(lang: string, key: ClangFormatConfigKey): string {
-  const config = vscode.workspace.getConfiguration('clang-format');
+  const config = vscode.workspace.getConfiguration('clangformat');
 
   let strConf = config.get<string>(`language.${langConfigName(lang)}.${key}`);
   if (strConf && strConf.trim()) {

@@ -5,7 +5,7 @@ import {getBinPath} from './clangPath';
 import * as sax from 'sax';
 import { availableLanguages, clangFormatConfig, clangFormatLangConfig } from './config';
 
-export let outputChannel = vscode.window.createOutputChannel('Clang-Format');
+export let outputChannel = vscode.window.createOutputChannel('ClangFormat');
 
 export class ClangDocumentFormattingEditProvider implements vscode.DocumentFormattingEditProvider, vscode.DocumentRangeFormattingEditProvider {
   public async provideDocumentFormattingEdits(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken) {
