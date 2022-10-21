@@ -1,9 +1,12 @@
-import * as vscode from 'vscode';
 import {spawn} from 'child_process';
 import * as path from 'path';
-import {getBinPath} from './clangPath';
 import * as sax from 'sax';
-import { availableLanguages, clangFormatConfig, clangFormatExecutable } from './config';
+import * as vscode from 'vscode';
+
+import {getBinPath} from './clangPath';
+import {availableLanguages,
+        clangFormatConfig,
+        clangFormatExecutable} from './config';
 
 export let outputChannel = vscode.window.createOutputChannel('ClangFormat');
 
@@ -78,7 +81,6 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
         default:
           reject(`Unexpected tag ${tag.name}`);
         }
-
       };
 
       parser.ontext = (text) => {
@@ -105,7 +107,6 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
 
       parser.write(xml);
       parser.end();
-
     });
   }
 
@@ -126,22 +127,22 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
     let parsedPath = path.parse(document.fileName);
     let fileNoExtension = path.join(parsedPath.dir, parsedPath.name);
     return assumedFilename
-        .replace(/\${file}/g, document.fileName)
-        .replace(/\${fileNoExtension}/g, fileNoExtension)
-        .replace(/\${fileBasename}/g, parsedPath.base)
-        .replace(/\${fileBasenameNoExtension}/g, parsedPath.name)
-        .replace(/\${fileExtname}/g, parsedPath.ext);
+      .replace(/\${file}/g, document.fileName)
+      .replace(/\${fileNoExtension}/g, fileNoExtension)
+      .replace(/\${fileBasename}/g, parsedPath.base)
+      .replace(/\${fileBasenameNoExtension}/g, parsedPath.name)
+      .replace(/\${fileExtname}/g, parsedPath.ext);
   }
 
   private getWorkspaceFolder(): string|undefined {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showErrorMessage("Unable to get the location of clang-format executable - no active workspace selected");
+      vscode.window.showErrorMessage('Unable to get the location of clang-format executable - no active workspace selected');
       return undefined;
     }
 
     if (!vscode.workspace.workspaceFolders) {
-      vscode.window.showErrorMessage("Unable to get the location of clang-format executable - no workspaces available");
+      vscode.window.showErrorMessage('Unable to get the location of clang-format executable - no workspaces available');
       return undefined
     }
 
@@ -233,8 +234,8 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
 export function activate(ctx: vscode.ExtensionContext): void {
   const formatter = new ClangDocumentFormattingEditProvider();
 
-  for(const language of availableLanguages) {
-    const selector = {language, scheme: 'file'};
+  for (const language of availableLanguages) {
+    const selector = { language, scheme: 'file' };
     ctx.subscriptions.push(vscode.languages.registerDocumentRangeFormattingEditProvider(selector, formatter));
     ctx.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(selector, formatter));
   }

@@ -29,10 +29,10 @@ const defaultConfig = {
 };
 
 function platformString() {
-  switch(process.platform) {
-    case 'win32': return 'windows';
-    case 'linux': return 'linux';
-    case 'darwin': return 'macos';
+  switch (process.platform) {
+  case 'win32': return 'windows';
+  case 'linux': return 'linux';
+  case 'darwin': return 'macos';
   }
 
   return 'unknown';
@@ -46,7 +46,6 @@ export function clangFormatExecutable(): string {
 
   return config.get<string>(`executable.${platformStr}`) || config.get<string>(`executable.default`) || defaultConfig.executable;
 }
-
 
 export function clangFormatConfig(key: ClangFormatConfigKey): string;
 export function clangFormatConfig(key: 'executable'): never;
