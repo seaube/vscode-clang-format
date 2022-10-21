@@ -9,11 +9,11 @@ export let outputChannel = vscode.window.createOutputChannel('ClangFormat');
 
 export class ClangDocumentFormattingEditProvider implements vscode.DocumentFormattingEditProvider, vscode.DocumentRangeFormattingEditProvider {
   public async provideDocumentFormattingEdits(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken) {
-    return await this.doFormatDocument(document, null, token) || [];
+    return await this.doFormatDocument(document, null, token);
   }
 
   public async provideDocumentRangeFormattingEdits(document: vscode.TextDocument, range: vscode.Range, options: vscode.FormattingOptions, token: vscode.CancellationToken) {
-    return await this.doFormatDocument(document, range, token) || [];
+    return await this.doFormatDocument(document, range, token);
   }
 
   private getEdits(document: vscode.TextDocument, xml: string, codeContent: string): Thenable<vscode.TextEdit[]> {
