@@ -1,4 +1,3 @@
-// Place your settings in this file to overwrite default and user settings.
 {
 	"files.exclude": {
 		"out": false // set this to true to hide the "out" folder with the compiled JS files
@@ -8,5 +7,10 @@
 	},
 	"typescript.tsdk": "./node_modules/typescript/lib", // we want to use the TS server from our node_modules folder to control its version
 	"clang-format.language.typescript.enable": true,
-	"editor.formatOnType": false
+	"editor.formatOnType": false,
+	"files.insertFinalNewline": true,
+	"editor.defaultFormatter": "seaube.clang-format",
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+	}
 }

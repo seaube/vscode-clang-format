@@ -1,7 +1,5 @@
-'use strict';
-
-import fs = require('fs');
-import path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
 
 let binPathCache: { [bin: string]: string } = {};
 

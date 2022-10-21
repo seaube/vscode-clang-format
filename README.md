@@ -1,69 +1,75 @@
-# README
+# ClangFormat for Visual Studio Code
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-orange.svg)](https://github.com/xaverh/vscode-clang-format/blob/master/LICENSE)
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/xaver.clang-format.svg)](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/xaver.clang-format.svg)](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
+This is a fork of [xaverh/vscode-clang-format](https://github.com/xaverh/vscode-clang-format) which hasn't published a new version since **2019** at the time of writing this. See issue: [xaverh/vscode-clang-format#113](https://github.com/xaverh/vscode-clang-format/issues/113). Most of the changes are cleanup/modernizing the codebase.
 
-[Clang-Format](http://clang.llvm.org/docs/ClangFormat.html) is a tool to format C/C++/Java/JavaScript/Objective-C/Objective-C++/Protobuf code. It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: http://clang.llvm.org/docs/ClangFormatStyleOptions.html
+Notable differences:
 
+* `clang-format.{language}.enabled` setting is removed. Instead we recommend using [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings).
+* More languages supported
+
+This extension allows you to format your code with [Clang-Format](http://clang.llvm.org/docs/ClangFormat.html). It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: <http://clang.llvm.org/docs/ClangFormatStyleOptions.html>
 
 ## Usage
 
-This extension allows clang-format (version 3.8 or higher) to be used to format C/C++, Javascript etc.
-source files directly from within Visual Studio Code.
-
-Files can be formatted on-demand by right clicking in the document and
-selecting "Format Document", or by using the associated keyboard shortcut
-(usually Ctrl+⇧+F on Windows, Ctrl+⇧+I on Linux, and ⇧+⌥+F on macOS).
+Files can be formatted on-demand by right clicking in the document and selecting "Format Document", or by using the associated keyboard shortcut (usually `Ctrl`+`⇧`+`F` on Windows, `Ctrl`+`⇧`+`I` on Linux, and `⇧`+`⌥`+`F` on macOS).
 
 To automatically format a file on save, add the following to your
-vscode settings.json file:
+vscode `settings.json` file:
 
 ```json
 {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "seaube.clang-format"
+}
+```
+
+If you would like to only use ClangFormat for a specify language use [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings).
+
+```json
+{
+  "editor.formatOnSave": true,
+  "[cpp]": {
+    "editor.defaultFormatter": "seaube.clang-format"
+  }
 }
 ```
 
 ## Specifying the location of clang-format
 
-This extension will attempt to find clang-format on your `PATH`.
-Alternatively, the clang-format executable can be specified in your vscode
-settings.json file:
+This extension will attempt to find clang-format on your `PATH`. Alternatively, the clang-format executable can be specified in your vscode settings.json file:
 
 ```json
 {
-    "clang-format.executable": "/absolute/path/to/clang-format"
+  "clang-format.executable": "/absolute/path/to/clang-format"
 }
 ```
 
-Placeholders can also be used in the `clang-format.executable` value.
-The following placeholders are supported:
+Additionally you may specify a different path for different platforms.
 
-- `${workspaceRoot}` - replaced by the absolute path of the current vscode
-  workspace root.
-- `${workspaceFolder}` - replaced by the absolute path of the current vscode 
-  workspace. In case of outside-workspace files `${workspaceFolder}` expands 
-  to the absolute path of the first available workspace.
-- `${cwd}` - replaced by the current working directory of vscode.
-- `${env.VAR}` - replaced by the environment variable $VAR, e.g. `${env.HOME}`
-  will be replaced by `$HOME`, your home directory.
+```json
+{
+  "clang-format.executable.windows": "/absolute/path/to/clang-format.exe",
+  "clang-format.executable.linux": "/absolute/path/to/clang-format",
+  "clang-format.executable.macos": "/absolute/path/to/clang-format",
+}
+```
 
-Some examples:
+Substitutions can also be used in the `clang-format.executable` value.
+The following substitutions are supported:
 
-- `${workspaceRoot}/node_modules/.bin/clang-format` - specifies the version of
-  clang that has been added to your workspace by `npm install clang-format`.
-- `${env.HOME}/tools/clang38/clang-format` - use a specific clang format version
-  under your home directory.
+* `${workspaceFolder}` - replaced by the absolute path of the current vscode workspace. In case of outside-workspace files `${workspaceFolder}` expands to the absolute path of the first available workspace.
+* `${cwd}` - replaced by the current working directory of vscode.
+* `${env.VAR}` - replaced by the environment variable VAR, e.g. `${env.HOME}` will be replaced by `$HOME`, your home directory.
 
-Placeholders are also supported in `clang-format.assumeFilename`. The supported
-placeholders are `${file}`, `${fileNoExtension}`, `${fileBasename}`,
+Substitutions are also supported in `clang-format.assumeFilename`. The supported
+substitutions are `${file}`, `${fileNoExtension}`, `${fileBasename}`,
 `${fileBasenameNoExtension}`, and `${fileExtname}`, with the same meaning as the
 predefined variables in [other configuration files](https://code.visualstudio.com/docs/editor/variables-reference).
 
 For example:
-- `${fileNoExtension}.cpp` - `/home/src/foo.h` will be formatted with
-  `-assume-filename /home/src/foo.cpp`.
+
+* `${fileNoExtension}.cpp` - `/home/src/foo.h` will be formatted with `-assume-filename /home/src/foo.cpp`.
 
 ## Source code
-Available on github: https://github.com/xaverh/vscode-clang-format-provider
+
+Available on github: <https://github.com/seaube/vscode-clang-format>

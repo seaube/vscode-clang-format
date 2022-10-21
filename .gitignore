@@ -1,9 +1,4 @@
-out
-node_modules
+/out
+/node_modules
+/npm-debug.log
 *.vsix
-typings/main
-typings/browser
-typings/main.d.ts
-typings/browser.d.ts
-npm-debug.log
-.vscode/
