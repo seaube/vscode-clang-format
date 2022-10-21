@@ -244,7 +244,8 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package"
+    "package": "vsce package",
+    "postversion": "vsce package && git push && cross-var git push origin v$npm_package_version && cross-var gh release create v$npm_package_version && cross-var gh release upload v$npm_package_version clang-format-$npm_package_version.vsix --clobber && cross-var vsce publish $npm_package_version"
   },
   "devDependencies": {
     "@types/node": "^16",
