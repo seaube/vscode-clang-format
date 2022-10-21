@@ -4,7 +4,8 @@ This is a fork of [xaverh/vscode-clang-format](https://github.com/xaverh/vscode-
 
 Notable differences:
 
-* `clang-format.{language}.enabled` setting is removed. Instead we recommend using [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings).
+* Extension settings are under the `clangformat` scope. This is partly to make this extension not collide with [xaverh/vscode-clang-format](https://github.com/xaverh/vscode-clang-format) and to match the extension name which cannot be `clang-format` due to [microsoft/vscode-docs#5584](https://github.com/microsoft/vscode-docs/issues/5584).
+* `clangformat.{language}.enabled` setting is removed. Instead we recommend using [Language Specific Editor Settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings).
 * More languages supported
 
 This extension allows you to format your code with [Clang-Format](http://clang.llvm.org/docs/ClangFormat.html). It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: <http://clang.llvm.org/docs/ClangFormatStyleOptions.html>
@@ -19,7 +20,7 @@ vscode `settings.json` file:
 ```json
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "seaube.clang-format"
+  "editor.defaultFormatter": "seaube.clangformat"
 }
 ```
 
@@ -29,7 +30,7 @@ If you would like to only use ClangFormat for a specify language use [Language S
 {
   "editor.formatOnSave": true,
   "[cpp]": {
-    "editor.defaultFormatter": "seaube.clang-format"
+    "editor.defaultFormatter": "seaube.clangformat"
   }
 }
 ```
@@ -40,7 +41,7 @@ This extension will attempt to find clang-format on your `PATH`. Alternatively, 
 
 ```json
 {
-  "clang-format.executable": "/absolute/path/to/clang-format"
+  "clangformat.executable": "/absolute/path/to/clang-format"
 }
 ```
 
@@ -48,9 +49,9 @@ Additionally you may specify a different path for different platforms.
 
 ```json
 {
-  "clang-format.executable.windows": "/absolute/path/to/clang-format.exe",
-  "clang-format.executable.linux": "/absolute/path/to/clang-format",
-  "clang-format.executable.macos": "/absolute/path/to/clang-format",
+  "clangformat.executable.windows": "/absolute/path/to/clang-format.exe",
+  "clangformat.executable.linux": "/absolute/path/to/clang-format",
+  "clangformat.executable.macos": "/absolute/path/to/clang-format",
 }
 ```
 

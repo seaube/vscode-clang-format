@@ -5,7 +5,7 @@ import {getBinPath} from './clangPath';
 import * as sax from 'sax';
 import { availableLanguages, clangFormatConfig, clangFormatLangConfig } from './config';
 
-export let outputChannel = vscode.window.createOutputChannel('Clang-Format');
+export let outputChannel = vscode.window.createOutputChannel('ClangFormat');
 
 export class ClangDocumentFormattingEditProvider implements vscode.DocumentFormattingEditProvider, vscode.DocumentRangeFormattingEditProvider {
   public async provideDocumentFormattingEdits(document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken) {
@@ -109,7 +109,7 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
     });
   }
 
-  /// Get execute name in clang-format.executable, if not found, use default value
+  /// Get execute name in clangformat.executable, if not found, use default value
   /// If configure has changed, it will get the new value
   private getExecutablePath() {
     return clangFormatConfig('executable')
