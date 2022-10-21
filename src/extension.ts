@@ -3,7 +3,7 @@ import {spawn} from 'child_process';
 import * as path from 'path';
 import {getBinPath} from './clangPath';
 import * as sax from 'sax';
-import { availableLanguages, clangFormatConfig, clangFormatLangConfig } from './config';
+import { availableLanguages, clangFormatConfig, clangFormatExecutable } from './config';
 
 export let outputChannel = vscode.window.createOutputChannel('ClangFormat');
 
@@ -112,18 +112,10 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
   /// Get execute name in clangformat.executable, if not found, use default value
   /// If configure has changed, it will get the new value
   private getExecutablePath() {
-    return clangFormatConfig('executable')
+    return clangFormatExecutable()
       .replace(/\${workspaceFolder}/g, this.getWorkspaceFolder() || '')
       .replace(/\${cwd}/g, process.cwd())
       .replace(/\${env\.([^}]+)}/g, (sub: string, envName: string) => process.env[envName] || '');
-  }
-
-  private getStyle(document: vscode.TextDocument) {
-    return clangFormatLangConfig(document.languageId, 'style');
-  }
-
-  private getFallbackStyle(document: vscode.TextDocument) {
-    return clangFormatLangConfig(document.languageId, 'fallbackStyle');
   }
 
   private getAssumedFilename(document: vscode.TextDocument) {
@@ -170,8 +162,8 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
 
       let formatArgs = [
         '-output-replacements-xml',
-        `-style=${this.getStyle(document)}`,
-        `-fallback-style=${this.getFallbackStyle(document)}`,
+        `-style=${clangFormatConfig('style')}`,
+        `-fallback-style=${clangFormatConfig('fallbackStyle')}`,
         `-assume-filename=${this.getAssumedFilename(document)}`
       ];
 
