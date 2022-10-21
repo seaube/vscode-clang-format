@@ -25,7 +25,8 @@
     "JavaScript",
     "LLVM",
     "Objective-C",
-    "Protobuf"
+    "Protobuf",
+    "Format"
   ],
   "main": "./out/src/extension",
   "activationEvents": [
@@ -33,16 +34,17 @@
     "onLanguage:c",
     "onLanguage:cpp",
     "onLanguage:csharp",
-    "onLanguage:cuda",
     "onLanguage:cuda-cpp",
+    "onLanguage:cuda",
     "onLanguage:glsl",
     "onLanguage:hlsl",
     "onLanguage:java",
     "onLanguage:javascript",
     "onLanguage:objective-c",
     "onLanguage:objective-cpp",
-    "onLanguage:proto3",
     "onLanguage:proto",
+    "onLanguage:proto3",
+    "onLanguage:textproto",
     "onLanguage:typescript"
   ],
   "contributes": {
