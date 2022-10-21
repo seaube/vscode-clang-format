@@ -9,5 +9,8 @@
 	"clang-format.language.typescript.enable": true,
 	"editor.formatOnType": false,
 	"files.insertFinalNewline": true,
-	"editor.defaultFormatter": "seaube.clang-format"
+	"editor.defaultFormatter": "seaube.clang-format",
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+	}
 }

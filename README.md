@@ -2,7 +2,7 @@
 
 This is a fork of xaverh/vscode-clang-format which hasn't published a new version since **2019** at the time of writing this. See issue: [xaverh/vscode-clang-format/issues/113](https://github.com/xaverh/vscode-clang-format/issues/113).
 
-This extension allows you to format your code with [Clang-Format](http://clang.llvm.org/docs/ClangFormat.html). It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: [http://clang.llvm.org/docs/ClangFormatStyleOptions.html](http://clang.llvm.org/docs/ClangFormatStyleOptions.html)
+This extension allows you to format your code with [Clang-Format](http://clang.llvm.org/docs/ClangFormat.html). It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: <http://clang.llvm.org/docs/ClangFormatStyleOptions.html>
 
 ## Usage
 
@@ -15,7 +15,8 @@ vscode settings.json file:
 
 ```json
 {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "seaube.clang-format"
 }
 ```
 
@@ -34,8 +35,8 @@ settings.json file:
 Placeholders can also be used in the `clang-format.executable` value.
 The following placeholders are supported:
 
-- `${workspaceFolder}` - replaced by the absolute path of the current vscode 
-  workspace. In case of outside-workspace files `${workspaceFolder}` expands 
+- `${workspaceFolder}` - replaced by the absolute path of the current vscode
+  workspace. In case of outside-workspace files `${workspaceFolder}` expands
   to the absolute path of the first available workspace.
 - `${cwd}` - replaced by the current working directory of vscode.
 - `${env.VAR}` - replaced by the environment variable $VAR, e.g. `${env.HOME}`
@@ -54,8 +55,10 @@ placeholders are `${file}`, `${fileNoExtension}`, `${fileBasename}`,
 predefined variables in [other configuration files](https://code.visualstudio.com/docs/editor/variables-reference).
 
 For example:
+
 - `${fileNoExtension}.cpp` - `/home/src/foo.h` will be formatted with
   `-assume-filename /home/src/foo.cpp`.
 
 ## Source code
-Available on github: https://github.com/seaube/vscode-clang-format
+
+Available on github: <https://github.com/seaube/vscode-clang-format>

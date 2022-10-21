@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 import {spawn} from 'child_process';
 import * as path from 'path';
-import {MODES} from './clangMode';
 import {getBinPath} from './clangPath';
 import * as sax from 'sax';
-import { clangFormatConfig, clangFormatLangConfig } from './config';
+import { availableLanguages, clangFormatConfig, clangFormatLangConfig } from './config';
 
 export let outputChannel = vscode.window.createOutputChannel('Clang-Format');
 
@@ -240,15 +239,11 @@ export class ClangDocumentFormattingEditProvider implements vscode.DocumentForma
 }
 
 export function activate(ctx: vscode.ExtensionContext): void {
+  const formatter = new ClangDocumentFormattingEditProvider();
 
-  let formatter = new ClangDocumentFormattingEditProvider();
-  let availableLanguages: {[lang: string]: boolean|undefined} = {};
-
-  MODES.forEach((mode) => {
-    ctx.subscriptions.push(vscode.languages.registerDocumentRangeFormattingEditProvider(mode, formatter));
-    ctx.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(mode, formatter));
-    if(mode.language) {
-      availableLanguages[mode.language] = true;
-    }
-  });
+  for(const language of availableLanguages) {
+    const selector = {language, scheme: 'file'};
+    ctx.subscriptions.push(vscode.languages.registerDocumentRangeFormattingEditProvider(selector, formatter));
+    ctx.subscriptions.push(vscode.languages.registerDocumentFormattingEditProvider(selector, formatter));
+  }
 }
