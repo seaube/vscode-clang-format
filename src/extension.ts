@@ -11,7 +11,7 @@ function getPlatformString() {
   switch(process.platform) {
     case 'win32': return 'windows';
     case 'linux': return 'linux';
-    case 'darwin': return 'osx';
+    case 'darwin': return 'macos';
   }
 
   return 'unknown';

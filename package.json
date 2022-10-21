@@ -48,7 +48,7 @@
   "contributes": {
     "configuration": {
       "type": "object",
-      "title": "Clang-Format configuration",
+      "title": "ClangFormat configuration",
       "properties": {
         "clang-format.executable": {
           "type": "string",
@@ -65,7 +65,7 @@
           "default": "",
           "description": "clang-format executable path on Linux"
         },
-        "clang-format.executable.osx": {
+        "clang-format.executable.macos": {
           "type": "string",
           "default": "",
           "description": "clang-format executable path on macOS"
