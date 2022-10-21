@@ -1,16 +1,10 @@
-# README
+# ClangFormat for Visual Studio Code
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-orange.svg)](https://github.com/xaverh/vscode-clang-format/blob/master/LICENSE)
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/xaver.clang-format.svg)](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/xaver.clang-format.svg)](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)
+This is a fork of xaverh/vscode-clang-format which hasn't published a new version since **2019** at the time of writing this. See issue: [xaverh/vscode-clang-format/issues/113](https://github.com/xaverh/vscode-clang-format/issues/113).
 
-[Clang-Format](http://clang.llvm.org/docs/ClangFormat.html) is a tool to format C/C++/Java/JavaScript/Objective-C/Objective-C++/Protobuf code. It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: http://clang.llvm.org/docs/ClangFormatStyleOptions.html
-
+This extension allows you to format your code with [Clang-Format](http://clang.llvm.org/docs/ClangFormat.html). It can be configured with a config file named `.clang-format` within the working folder or a parent folder. Configuration see: [http://clang.llvm.org/docs/ClangFormatStyleOptions.html](http://clang.llvm.org/docs/ClangFormatStyleOptions.html)
 
 ## Usage
-
-This extension allows clang-format (version 3.8 or higher) to be used to format C/C++, Javascript etc.
-source files directly from within Visual Studio Code.
 
 Files can be formatted on-demand by right clicking in the document and
 selecting "Format Document", or by using the associated keyboard shortcut
@@ -40,8 +34,6 @@ settings.json file:
 Placeholders can also be used in the `clang-format.executable` value.
 The following placeholders are supported:
 
-- `${workspaceRoot}` - replaced by the absolute path of the current vscode
-  workspace root.
 - `${workspaceFolder}` - replaced by the absolute path of the current vscode 
   workspace. In case of outside-workspace files `${workspaceFolder}` expands 
   to the absolute path of the first available workspace.
@@ -66,4 +58,4 @@ For example:
   `-assume-filename /home/src/foo.cpp`.
 
 ## Source code
-Available on github: https://github.com/xaverh/vscode-clang-format-provider
+Available on github: https://github.com/seaube/vscode-clang-format
