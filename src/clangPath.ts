@@ -9,7 +9,7 @@ export function getBinPath(binname: string) {
   }
 
   for (let binNameToSearch of correctBinname(binname)) {
-    // clang-format.executable has a valid absolute path
+    // clangformat.executable has a valid absolute path
     if (fs.existsSync(binNameToSearch)) {
       binPathCache[binname] = binNameToSearch;
       return binNameToSearch;
