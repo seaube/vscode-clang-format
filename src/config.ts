@@ -1,9 +1,5 @@
 import * as vscode from 'vscode';
 
-const aliases: {[lang: string]: string|undefined} = {
-  'proto3': 'proto',
-};
-
 // keep sorted
 export const availableLanguages: ReadonlyArray<string> = [
   'apex',
@@ -32,10 +28,6 @@ const defaultConfig = {
   assumeFilename: '',
 };
 
-function langConfigName(lang: string): string {
-  return aliases[lang] || lang;
-}
-
 function platformString() {
   switch(process.platform) {
     case 'win32': return 'windows';
@@ -48,25 +40,17 @@ function platformString() {
 
 export type ClangFormatConfigKey = keyof typeof defaultConfig;
 
-export function clangFormatLangConfig(lang: string, key: ClangFormatConfigKey): string {
-  const config = vscode.workspace.getConfiguration('clangformat');
-
-  let strConf = config.get<string>(`language.${langConfigName(lang)}.${key}`);
-  if (strConf && strConf.trim()) {
-    return strConf;
-  }
-
-  strConf = config.get<string>(key);
-  if (strConf && strConf.trim()) {
-    return strConf;
-  }
-
-  return defaultConfig[key];
-}
-
-export function clangFormatConfig(key: ClangFormatConfigKey): string {
-  const config = vscode.workspace.getConfiguration('clangformat');
+export function clangFormatExecutable(): string {
+  const config = vscode.workspace.getConfiguration('clangFormat');
   const platformStr = platformString();
 
-  return config.get<string>(`${key}.${platformStr}`) || config.get<string>(`${key}`) || defaultConfig[key];
+  return config.get<string>(`executable.${platformStr}`) || config.get<string>(`executable.default`) || defaultConfig.executable;
+}
+
+
+export function clangFormatConfig(key: ClangFormatConfigKey): string;
+export function clangFormatConfig(key: 'executable'): never;
+export function clangFormatConfig(key: ClangFormatConfigKey): string {
+  const config = vscode.workspace.getConfiguration('clangFormat');
+  return config.get<string>(key) || defaultConfig[key];
 }
